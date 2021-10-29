@@ -24,23 +24,25 @@
     const addBtn = (h, ttl, func) => $('<button>').appendTo(h).text(ttl).on('click', func);
     $('<h1>').appendTo(head).text('コントローラ');
     {
-        const width = 3 * 2 + 1;
-        const toI = (x, y) => x + y * width;
-        makeTable(width, 3).appendTo(body);
-        const tds = body.find('td');
-        addBtn(tds.get(toI(0, 1)), '←', () => move('a'));
-        addBtn(tds.get(toI(2, 1)), '→', () => move('d'));
-        addBtn(tds.get(toI(1, 0)), '↑', () => move('w'));
-        addBtn(tds.get(toI(1, 2)), '↓', () => move('s'));
+        const width = 3 * 2 + 1,
+              toI = (x, y) => x + y * width,
+              table = makeTable(width, 3).appendTo(body).css({
+                  'table-layout': 'fixed',
+                  margin: 'auto'
+              });
+        const t = table.find('td');
+        const w = addBtn(t.get(toI(0, 1)), '←', () => move('←')).outerWidth();
+        addBtn(t.get(toI(2, 1)), '→', () => move('→'));
+        addBtn(t.get(toI(1, 0)), '↑', () => move('↑'));
+        addBtn(t.get(toI(1, 2)), '↓', () => move('↓'));
+        addBtn(t.get(toI(0 + 4, 1)), 'Y', () => move('Y'));
+        addBtn(t.get(toI(2 + 4, 1)), 'A', () => move('A'));
+        addBtn(t.get(toI(1 + 4, 0)), 'X', () => move('X'));
+        addBtn(t.get(toI(1 + 4, 2)), 'B', () => move('B'));
+        console.log(w)
+        table.css({width: w * width});
     }
-    const move = way => {
-        $('<div>').prependTo(foot).text((()=>{
-            switch(way){
-                case 'a': return '←';
-                case 'd': return '→';
-                case 'w': return '↑';
-                case 's': return '↓';
-            }
-        })() + new Date);
+    const move = c => {
+        $('<div>').prependTo(foot).text(c + ' ' + new Date);
     };
 })();
