@@ -30,24 +30,28 @@
                   margin: 'auto'
               });
         const td = table.find('td'),
-              _a = addBtn(td.get(toI(0, 1)), '←', () => move('←')),
-              _d = addBtn(td.get(toI(2, 1)), '→', () => move('→')),
-              _w = addBtn(td.get(toI(1, 0)), '↑', () => move('↑')),
-              _s = addBtn(td.get(toI(1, 2)), '↓', () => move('↓')),
-              y = addBtn(td.get(toI(0 + 4, 1)), 'Y', () => move('Y')),
-              a = addBtn(td.get(toI(2 + 4, 1)), 'A', () => move('A')),
-              x = addBtn(td.get(toI(1 + 4, 0)), 'X', () => move('X')),
-              b = addBtn(td.get(toI(1 + 4, 2)), 'B', () => move('B'));
-        _a.add(_d).add(_w).add(_s).add(td.get(toI(1, 1))).css({
+              _a = td.eq(toI(0, 1)).on('click', () => move('←')),
+              _d = td.eq(toI(2, 1)).on('click', () => move('→')),
+              _w = td.eq(toI(1, 0)).on('click', () => move('↑')),
+              _s = td.eq(toI(1, 2)).on('click', () => move('↓')),
+              y = addBtn(td.eq(toI(0 + 4, 1)), 'Y', () => move('Y')),
+              a = addBtn(td.eq(toI(2 + 4, 1)), 'A', () => move('A')),
+              x = addBtn(td.eq(toI(1 + 4, 0)), 'X', () => move('X')),
+              b = addBtn(td.eq(toI(1 + 4, 2)), 'B', () => move('B'));
+        const unit = b.outerWidth();
+        td.css({
+            width: unit,
+            height: unit
+        });
+        _a.add(_d).add(_w).add(_s).add(td.eq(toI(1, 1))).css({
             'backgroundColor': 'rgba(66, 86, 123, 0.5)'
         });
         y.add(a).add(x).add(b).css({
             'border-radius': '90%'
         });
         table.css({
-            width: _a.outerWidth() * width,
-            border: '3px gray solid',
-            backgroundColor: 'rgb(179, 66, 74)'
+            backgroundColor: 'rgb(179, 66, 74)',
+            border: '3px gray solid'
         });
     }
     const move = c => {
