@@ -44,7 +44,11 @@
         y.add(a).add(x).add(b).css({
             'border-radius': '90%'
         });
-        table.css({width: _a.outerWidth() * width});
+        table.css({
+            width: _a.outerWidth() * width,
+            border: '3px gray solid',
+            backgroundColor: 'rgb(179, 66, 74)'
+        });
     }
     const move = c => {
         $('<div>').prependTo(foot).text(c + ' ' + new Date);
